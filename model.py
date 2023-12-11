@@ -48,7 +48,7 @@ class Ising2D:
             itself.energy += deltaE
             itself.magnetisation += 2 * itself.spins[i, j] 
 #Parameters
-N_trials = 5         #No of times to run the simulation for each temp 
+N_trials = 2        #No of times to run the simulation for each temp 
 N_equilibrate, N_compute = 100000, 100000    # steps to reach equilibrium then computing steps
 Nx, Ny = 10, 10
 N = Nx * Ny
