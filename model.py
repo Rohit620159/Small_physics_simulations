@@ -31,6 +31,14 @@ class Ising2D:
             (itself.spins[:, 0] * itself.spins[:, -1]).sum()
         )
         return interaction_energy
+    def delta_energy(itself, i, j):
+        delta_interaction = 2 * itself.J * itself.spins[i, j] * (
+            itself.spins[i-1, j] + self.spins[i, j-1] +
+            itself.spins[(i+1) if i+1 < itself.Nx else 0, j] +
+            itself.spins[i, (j+1) if j+1 < itself.Ny else 0]
+        )
+        return delta_interaction
+
     def random_update(itself):
         i = np.random.randint(0, itself.Nx)
         j = np.random.randint(0, itself.Ny)
