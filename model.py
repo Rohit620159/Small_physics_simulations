@@ -2,6 +2,7 @@
 import numpy as np
 import tqdm.notebook import tddm
 from matplotlib import pyplot as plt
+from matplotlib.cm import get_cmap
 
 #Defining class - Ising model & its properties
 class 2dIsing:
@@ -45,11 +46,25 @@ Nx, Ny = 10, 10
 N = Nx * Ny
 J = 1
 betas = np.geomspace(0.05, 2, 101)
+# Define dictionaries for colors and markers
+markers = {
+    "Energy": "o",
+    "Magnetisation": "-",
+    "Heat capacity": "^",
+    "Susceptibility": "s",
+}
 
+colors = {
+    "Energy": "blue",
+    "Magnetisation": "red",
+    "Heat capacity": "green",
+    "Susceptibility": "purple",
+}
 fig, axs = plt.subplots(2, 2, sharex=True, figsize=(10, 5))
 axs = [ax for row in axs for ax in row]
+
 for beta in tqdm(betas, leave=False):
-    energies, magnetisations, heatcapacities, susceptibilities = [], [], [], []
+    energies, magnetisations, heatcapacities, susceptibilities = [], [], [], []   
     quantities = [energies, magnetisations, heatcapacities, susceptibilities]
     for trial in range(N_trials):
         system = 2dIsing(Nx, Ny, J, beta, 'hot')
@@ -67,9 +82,28 @@ for beta in tqdm(betas, leave=False):
         magnetisations.append(np.abs(np.mean(magnetisation)) / N)
         heatcapacities.append(beta ** 2 * (np.mean(energy ** 2) - np.mean(energy) ** 2) / N)
         susceptibilities.append(beta * (np.mean(magnetisation ** 2) - np.mean(magnetisation) ** 2) / N)
+    # Plot results with different colors and markers
+    cmap = get_cmap("viridis", len(quantities))
+    for ax, quantity, i in zip(axs, quantities, range(len(quantities))):
+        marker = markers[quantity]
+        color = colors[quantity]
 
-    for ax, quantity in zip(axs, quantities):
-        ax.scatter([1/beta], [np.median(quantity)], color='k', s=5)
+        ax.scatter([1/beta], [np.median(quantity)], color=color, marker=marker, s=5, label=quantity, alpha=0.7)
+        ax.plot([1/beta], [np.median(quantity)], color=color, marker=marker, linestyle="-", alpha=0.7)
 
+# Configure plot
+axs[0].set_xscale('log')
+axs[0].set_ylabel('Energy')
+axs[1].set_ylabel('Magnetisation')
+axs[2].set_ylabel('Heat capacity')
+axs[3].set_ylabel('Susceptibility')
+for ax in axs:
+    ax.set_xlabel(r'$k_B T$')
+    ax.legend()
+
+plt.tight_layout()
+plt.show()
+# Save the plot as a file (choose your preferred format, e.g., PDF, PNG)
+plt.savefig("2D_ising_model_plot.png", bbox_inches="tight")
 
 
