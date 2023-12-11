@@ -1,11 +1,11 @@
 #importing required librairies
 import numpy as np
-import tqdm.notebook import tddm
+from tqdm.notebook import tqdm
 from matplotlib import pyplot as plt
 from matplotlib.cm import get_cmap
 
 #Defining class - Ising model & its properties
-class 2dIsing:
+class Ising2D:
     def __init__(                        #initializes
         itself, Nx: int, Ny: int, J: float, beta: float,                #defines size N of lattice , interaction energy J , inverse temp Beta
         start_type=None
@@ -67,7 +67,7 @@ for beta in tqdm(betas, leave=False):
     energies, magnetisations, heatcapacities, susceptibilities = [], [], [], []   
     quantities = [energies, magnetisations, heatcapacities, susceptibilities]
     for trial in range(N_trials):
-        system = 2dIsing(Nx, Ny, J, beta, 'hot')
+        system = Ising2D(Nx, Ny, J, beta, 'hot')
         for i in range(N_equilibrate):
             system.random_update()
             
