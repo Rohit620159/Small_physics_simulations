@@ -93,7 +93,9 @@ for beta in tqdm(betas, leave=False):
     # Plot results with different colors and markers
     cmap = get_cmap("viridis", len(quantities))
     for ax, quantity, i in zip(axs, quantities, range(len(quantities))):
+        quantity = quantity[0]
         marker = markers[quantity]
+
         color = colors[quantity]
 
         ax.scatter([1/beta], [np.median(quantity)], color=color, marker=marker, s=5, label=quantity, alpha=0.7)
