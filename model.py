@@ -26,7 +26,7 @@ class Ising2D:
     def _energy(itself):                                       #total energy of system by iterating over all NEIGHBORS and adding J
         interaction_energy = -itself.J * (
             (itself.spins[:-1, :] * itself.spins[1:, :]).sum() +
-            (itself.spins[:, :-1] * itself.spins[:, 1:]).sum() +
+            (itself.spins[:, :-1] * itself.spins[:, 1:]).sum() +               #boundary conditions - wrapping lattice around
             (itself.spins[0, :] * itself.spins[-1, :]).sum() +
             (itself.spins[:, 0] * itself.spins[:, -1]).sum()
         )
