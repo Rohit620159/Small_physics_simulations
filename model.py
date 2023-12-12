@@ -93,7 +93,7 @@ for beta in tqdm(betas, leave=False):
     # Plot results with different colors and markers
     cmap = get_cmap("viridis", len(quantities))
     for ax, quantity, i in zip(axs, quantities, range(len(quantities))):
-        quantity = quantity[0]
+        quantity = np.median(quantity)
         marker = markers[quantity]
 
         color = colors[quantity]
