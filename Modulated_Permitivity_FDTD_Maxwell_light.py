@@ -4,17 +4,17 @@ from matplotlib.animation import FuncAnimation
 
 # Parameters
 c = 1  # Speed of light (normalized)
-dx = 0.1  # Spatial resolution
-dt = dx / c  # Temporal resolution
-num_steps = 1000  # Number of time steps
-num_cells = 100  # Number of cells in the simulation domain
+dx = 0.001  # Spatial resolution
+dt = dx / c*0.5  # Temporal resolution
+num_steps = 10000  # Number of time steps
+num_cells = 1000  # Number of cells in the simulation domain
 v = 0.1  # Velocity of the wave
 
 # Define functions for permittivity and permeability (modify as needed)
 def epsilon_r(z, t):
     # Define your function for permittivity here
    # return 2.0  # Constant permittivity for simplicity
-     return 1.0 + 0.5 * np.sin(2 * np.pi * (z - v * t)) 
+     return 1.0 + 0.2 * np.sin(2 * np.pi * (z - v * t)) 
 
 def mu_r(x):
     # Define your function for permeability here (default: constant permeability)
